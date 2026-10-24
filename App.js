@@ -47,7 +47,6 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.headerTitle}>Daftar Tugas UTS</Text>
 
-      {/* Kotak Pencarian (Search Bar) untuk Soal 2 */}
       <TextInput
         style={styles.searchInput}
         placeholder="Cari tugas..."
@@ -56,7 +55,6 @@ export default function App() {
         onChangeText={(text) => setSearchQuery(text)}
       />
 
-      {/* FlatList untuk merender InfoCard secara dinamis */}
       <FlatList
         data={filteredTasks}
         keyExtractor={(item) => item.id}
@@ -66,9 +64,13 @@ export default function App() {
             status={item.status} 
             onPress={() => Alert.alert("Informasi", item.detail)} 
           />
-        )}
-        showsVerticalScrollIndicator={false}
-      />
+          )}
+          showsVerticalScrollIndicator={false}
+          // TAMBAHKAN INI UNTUK MEMENUHI SYARAT LIST EMPTY COMPONENT:
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>Data tidak ditemukan!</Text>
+          }
+        />
     </SafeAreaView>
   );
 }
@@ -98,4 +100,10 @@ const styles = StyleSheet.create({
     color: '#0f172a',
     marginBottom: 16,
   },
+  emptyText: {
+    textAlign: 'center',
+    color: '#94a3b8',
+    marginTop: 24,
+    fontSize: 14,
+  }
 });
